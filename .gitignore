@@ -1,2 +1,5 @@
 creditcard.csv
 *.csv
+
+# trained artefacts
+fraud_model.pkl

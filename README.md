@@ -12,6 +12,13 @@ This project implements a machine learning solution to detect fraudulent credit 
 Task 3/
 ├── Credit Card Fraud Detection.ipynb
 ├── creditcard.csv
+├── train_model.py       # script to train and pickle the model
+├── fraud_model.pkl      # generated after training
+├── app.py               # Flask-based web frontend
+├── templates/
+│   └── index.html       # form UI
+├── static/
+│   └── style.css        # colorful styling
 └── README.md
 ```
 
@@ -80,3 +87,20 @@ Each model's performance is evaluated and reported through:
 ## Conclusion
 
 This project demonstrates that proper handling of class imbalance is crucial for fraud detection. The XGBoost model with scale_pos_weight provides a robust solution with adjustable decision thresholds for balancing false positives and false negatives based on business requirements.
+
+## Interactive Web Frontend
+
+A small Flask application with a colorful input form has been added so you can interact with the trained model through a browser. Follow these steps to use the web UI:
+
+
+**Start the web server**:
+   ```powershell
+   python app.py
+   ```
+   The app will run on `http://127.0.0.1:5002`.
+
+**Open a browser** and navigate to the URL. Enter values for the transaction features and click **Predict**.
+
+The form is styled with a vibrant gradient and responsive grid layout; prediction results appear in‑place with color coding for fraudulent vs legitimate transactions.
+
+Feel free to extend or redeploy the UI as needed.
