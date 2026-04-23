@@ -104,3 +104,27 @@ A small Flask application with a colorful input form has been added so you can i
 The form is styled with a vibrant gradient and responsive grid layout; prediction results appear in‑place with color coding for fraudulent vs legitimate transactions.
 
 Feel free to extend or redeploy the UI as needed.
+
+## FraudShield AI React Frontend
+
+A separate React + Vite frontend is now included in `frontend/` for a more polished landing page experience under the platform name **FraudShield AI**.
+
+### What it includes
+- Modern landing page with animated background
+- React Icons based UI accents
+- Minimal top-level form with hidden advanced feature groups
+- API-based prediction flow connected to the Flask backend
+
+### Run the backend
+```powershell
+python app.py
+```
+
+### Run the React frontend
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+The Vite dev server runs on `http://127.0.0.1:5173` and proxies `/api` requests to the Flask backend on `http://127.0.0.1:5002`.

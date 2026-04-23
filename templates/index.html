@@ -3,35 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credit Card Fraud Checker</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <script src="/static/script.js" defer></script>
+    <title>Credit Card Fraud Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>💳 Credit Card Fraud Detector</h1>
-        <p>Enter transaction details below and click <strong>Predict</strong>!</p>
-        {% if result %}
-            <div class="result {{ 'fraud' if result=='Fraudulent' else 'legit' }}">
-                Prediction: <strong>{{ result }}</strong><br>
-                Probability (fraud): {{ '{:.2f}'.format(probability) }}
-            </div>
-        {% endif %}
+        <h1>Credit Card Fraud Detection</h1>
+        <p>Enter transaction details below to estimate whether the payment is legitimate or fraudulent.</p>
+
         {% if error %}
-            <div class="error">Error: {{ error }}</div>
+        <div class="error">{{ error }}</div>
         {% endif %}
-        <form action="/predict" method="post">
+
+        {% if result %}
+        <div class="result {{ 'fraud' if result == 'Fraudulent' else 'legit' }}">
+            <strong>Prediction:</strong> {{ result }}
+            {% if probability is not none %}
+            <br>
+            <strong>Fraud Probability:</strong> {{ '%.2f'|format(probability * 100) }}%
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <form action="{{ url_for('predict') }}" method="post">
             <div class="grid">
-                {% for feat in features %}
+                {% for feature in features %}
                 <div class="cell">
-                    <label for="{{feat}}">{{feat}}</label>
-                    <input type="text" name="{{feat}}" id="{{feat}}" required>
+                    <label for="{{ feature }}">{{ feature }}</label>
+                    <input
+                        type="text"
+                        id="{{ feature }}"
+                        name="{{ feature }}"
+                        value="{{ request.form.get(feature, '') }}"
+                        placeholder="Enter {{ feature }}"
+                        required
+                    >
                 </div>
                 {% endfor %}
             </div>
+
             <button type="submit" class="btn">Predict</button>
             <button type="button" class="btn secondary" onclick="loadExample()">Load Example</button>
         </form>
     </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
